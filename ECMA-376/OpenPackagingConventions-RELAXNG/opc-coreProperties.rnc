@@ -1,0 +1,37 @@
+default namespace =
+  "http://schemas.openxmlformats.org/package/2006/metadata/core-properties"
+namespace dc = "http://purl.org/dc/elements/1.1/"
+namespace dcterms = "http://purl.org/dc/terms/"
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+include "xml.rnc"
+
+start = coreProperties
+coreProperties = element coreProperties { CT_CoreProperties }
+CT_CoreProperties =
+  element category { xsd:string }?
+  & element contentStatus { xsd:string }?
+  & element dcterms:created { 
+      attribute xsi:type { xsd:QName "dcterms:W3CDTF" }, xml_lang?, W3CDTF
+    }?
+  & element dc:creator { SimpleLiteral }?
+  & element dc:description { SimpleLiteral }?
+  & element dc:identifier { SimpleLiteral }?
+  & element keywords { CT_Keywords }?
+  & element dc:language { SimpleLiteral }?
+  & element lastModifiedBy { xsd:string }?
+  & element lastPrinted { xsd:dateTime }?
+  & element dcterms:modified { 
+      attribute xsi:type { xsd:QName "dcterms:W3CDTF" }, xml_lang?, W3CDTF
+    }?
+  & element revision { xsd:string }?
+  & element dc:subject { SimpleLiteral }?
+  & element dc:title { SimpleLiteral }?
+  & element version { xsd:string }?
+CT_Keywords =
+  mixed {
+    xml_lang?,
+    element value { CT_Keyword }*
+  }
+CT_Keyword = xsd:string, xml_lang?
+SimpleLiteral = xml_lang?,  xsd:string
+W3CDTF = xsd:gYear | xsd:gYearMonth | xsd:date | xsd:dateTime

@@ -1,0 +1,14 @@
+default namespace =
+  "http://schemas.openxmlformats.org/package/2006/relationships"
+
+start = Relationships
+Relationships = element Relationships { CT_Relationships }
+Relationship = element Relationship { CT_Relationship }
+CT_Relationships = Relationship*
+CT_Relationship =
+  xsd:string,
+  attribute TargetMode { ST_TargetMode }?,
+  attribute Target { xsd:anyURI },
+  attribute Type { xsd:anyURI },
+  attribute Id { xsd:ID }
+ST_TargetMode = string "External" | string "Internal"

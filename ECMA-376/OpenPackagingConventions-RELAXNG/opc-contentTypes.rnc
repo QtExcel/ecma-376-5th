@@ -1,0 +1,24 @@
+default namespace =
+  "http://schemas.openxmlformats.org/package/2006/content-types"
+
+start = Types
+Types = element Types { CT_Types }
+Default = element Default { CT_Default }
+Override = element Override { CT_Override }
+CT_Types = (Default | Override)*
+CT_Default =
+  attribute Extension { ST_Extension },
+  attribute ContentType { ST_ContentType }
+CT_Override =
+  attribute ContentType { ST_ContentType },
+  attribute PartName { xsd:anyURI }
+ST_ContentType =
+  xsd:string {
+    pattern =
+      '(((([\p{IsBasicLatin}-[\p{Cc}\x{127}\(\)<>@,;:\\"/\[\]\?=\{\}\s\t]])+))/((([\p{IsBasicLatin}-[\p{Cc}\x{127}\(\)<>@,;:\\"/\[\]\?=\{\}\s\t]])+))((\s+)*;(\s+)*(((([\p{IsBasicLatin}-[\p{Cc}\x{127}\(\)<>@,;:\\"/\[\]\?=\{\}\s\t]])+))=((([\p{IsBasicLatin}-[\p{Cc}\x{127}\(\)<>@,;:\\"/\[\]\?=\{\}\s\t]])+)|("(([\p{IsLatin-1Supplement}\p{IsBasicLatin}-[\p{Cc}\x{127}"\n\r]]|(\s+))|(\\[\p{IsBasicLatin}]))*"))))*)'
+  }
+ST_Extension =
+  xsd:string {
+    pattern =
+      "([!$&'\(\)\*\+,:=]|(%[0-9a-fA-F][0-9a-fA-F])|[:@]|[a-zA-Z0-9\-_~])+"
+  }
